@@ -70,7 +70,7 @@ public class PicoLabLoadTestWithHttpRequests extends HttpServlet {
 		long end_timing = System.currentTimeMillis();
 
 		System.out.println(" The " + (++(this.number)) + " th Http Request is from " + request.getRemoteAddr()
-				+ "; Sum = " + sum + "; total time:" + ( end_timing - start_timing));
+				+  "; total time:" + ( end_timing - start_timing));
 
 		//
 //		
