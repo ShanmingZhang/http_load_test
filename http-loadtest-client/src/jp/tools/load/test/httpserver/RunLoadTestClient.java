@@ -10,7 +10,7 @@ public class RunLoadTestClient {
 	private static int totalTime = 0;
 	private static int startTime = 0;
 
-	private final static String TEST_URL = "http://192.168.56.103:8080/picolab/loadtest";
+	private final static String TEST_URL = "http://192.168.56.103:8080/http-loadtest-server/loadtest";
 	private final static String PRAM_URL = "ID=2";
 
 	public static void printOperationMessage() {
@@ -39,7 +39,6 @@ public class RunLoadTestClient {
 	}
 
 	public static void main(String[] args) {
-
 		// TODO Auto-generated method stub
 		printOperationMessage();
 		System.out.println(number);
@@ -53,7 +52,7 @@ public class RunLoadTestClient {
 		
 		System.out.println(" # 結果整理出力中．．．");
 		try {
-			Thread.sleep(20*1000);
+			Thread.sleep(30*1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +60,8 @@ public class RunLoadTestClient {
 		
 		ResultSet.outputResultSetIntoFile();
 		System.out.println(" # 結果整理出力完了！");
+
+		ShowResultsChart.ShowChar("showResultChart.py");
 	}
 
 }
