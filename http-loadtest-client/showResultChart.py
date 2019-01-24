@@ -29,7 +29,7 @@ batch_number_array = list(set(batch_number_array))
 
 for num in batch_number_array:
     with open("HttpRequestLoadTest.txt", "r") as s_file:
-        print num
+        
         for s_line in s_file:
             if s_line.find("BatchNumber=") > -1 :
                 
@@ -54,7 +54,6 @@ failture_array = [0]
 total_array = [0]
 
 for index in batch_number_array:
-	#print index
 	items_set = result_dict[index]
 	a = items_set[0]
 	successful_array.append(items_set[0])
@@ -80,5 +79,8 @@ plt.grid(color="gray")
 
 plt.xlabel("Concurrent time(s)")
 plt.ylabel("Amount of HttpRequestts")
+
+plt.savefig('HttpLoadTestResultChart.png') 
+plt.title('HttpRequest Load Test',loc='Center')
 
 plt.show()
