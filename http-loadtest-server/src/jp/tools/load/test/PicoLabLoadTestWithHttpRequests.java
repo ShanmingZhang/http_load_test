@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.tools.db.mysql.MysqlOperations;
 
-/**
- * Servlet implementation class PicoLabLoadTestWithHttpRequests
+/*
+ * HTTP要求URLに対するサーバ側のロジック処理サービス
+ * 　クライアントからURLからIDパラメタを取得
+ * 　IDによる一回MysqlデータベースにIDを検索
+ * 　負荷テストするため、連続整数和の計算処理を追加
  */
 @WebServlet("/PicoLabLoadTestWithHttpRequests")
 public class PicoLabLoadTestWithHttpRequests extends HttpServlet {
@@ -31,29 +34,24 @@ public class PicoLabLoadTestWithHttpRequests extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	/*
+	 * HTTP GETメソッドを受け扱い、応答
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// HTTP要求からクライアント側伝えたパラメタを取得
 		String id = request.getParameter("ID");
 
+		// 通常HTTP応答の属性設定
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 
+		/*
+		 * IDによりデータベースにアクセスし、検索処理を実施 結果を応答としてHTTP応答に設定
+		 */
 		response.addHeader("EXIST_FLAG", new Boolean(MysqlOperations.CheckDataExist(id)).toString());
 
-//		PrintWriter out = response.getWriter();
-
-//		out.println("<!DOCTYPE html><html>");
-//		out.println("<head>");
-//		out.println("<meta charset=\"UTF-8\" />");
-//
-//		out.println("<title>" + "PicoLab Load Test" + "</title>");
-//		out.println("</head>");
-//		out.println("<body>");
+		// サーバ負荷処理を増えるため、かきのフープ処理を追加
 		long start_timing = System.currentTimeMillis();
 		List<Integer> lst = new ArrayList();
 
@@ -66,16 +64,11 @@ public class PicoLabLoadTestWithHttpRequests extends HttpServlet {
 		for (Integer itg : lst) {
 			itg.intValue();
 		}
-		
+
+		// HTTP要求に対しサーバ側処理時間を出力
 		long end_timing = System.currentTimeMillis();
-
 		System.out.println(" The " + (++(this.number)) + " th Http Request is from " + request.getRemoteAddr()
-				+  "; total time:" + ( end_timing - start_timing));
-
-		//
-//		
-//		out.println("<h1>" + " The " + (++(this.number)) + " th Http Request is " + (MysqlOperations.CheckDataExist(id) == true ? " successful" : " failure" ) + "! </h1>");
-//		out.println("</body>");
+				+ "; total time:" + (end_timing - start_timing));
 
 	}
 
