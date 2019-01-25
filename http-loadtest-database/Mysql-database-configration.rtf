@@ -1,0 +1,57 @@
+{\rtf1\ansi\ansicpg932\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset128 HiraginoSans-W3;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12380\viewh10940\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs22 \cf0 \
+#####Mysql Install and Configuration Start ######\
+$sudo apt update\
+$sudo apt-get upgrade\
+\
+$sudo apt install mysql-server mysql-client\
+\
+\
+$mysql -u root -p\
+mysql> create database test_db;\
+mysql> grant all on test_db.* to 'picolab' identified by 'picolab';\
+mysql> show databases;\
+mysql> quit\
+\
+\
+$mysql -u picolab -p\
+Enter password: >> picolab\
+mysql> show databases;\
+mysql> connect test_db;\
+mysql> create table test_table (id INT, name varchar(20));\
+mysql> insert into test_table values (1, "pico lab test data 1");\
+mysql> insert into test_table values(2, "pico lab test data 2");\
+mysql> select * from test_table;\
+mysql> quit\
+\
+\
+$ cd /etc/mysql/mysql.conf.d\
+$ sudo vi mysqld.cnf     \
+
+\f1 \'81\'40\'81\'40
+\f0  #bind-address	= 127.0.0.1\
+\
+$ sudo systemctl stop mysql\
+$ sudo systemctl start mysql\
+\pard\pardeftab720\partightenfactor0
+\cf0 $ sudo systemctl status mysql\
+$ sudo systemctl enable mysql\
+\
+#####Mysql Install and Configuration End ######
+\f1 \
+
+\f0 \
+/////////\
+$ sudo systemctl restart mysql\
+\pard\pardeftab720\partightenfactor0
+\cf0 $ sudo systemctl disable mysql\
+$ sudo systemctl enable mysql\
+////////\
+}
